@@ -1,6 +1,7 @@
 PImage fondo;
+PImage [] pan = new PImage [3];
 ArrayList<panadero> flores;
-int cuantas = 20;
+int cuantas = 100;
 int rotacion = 0;
 
 void setup() {
@@ -8,8 +9,14 @@ void setup() {
   hint(ENABLE_DEPTH_SORT);
   fondo = loadImage("fondo.png");
   
+  // dibujar particulas individuales para el fondo y animarlas
+  /*
+   for ( int i = 0; i<pan.length; i++ ) {
+      pan[i] = loadImage( "panaAni" + (i+1) + ".png" );
+      }
+  */
   
-  //luci = new luciernaga();
+  //flores = new panadero();
   flores = new ArrayList<panadero>();
   for (int i=0; i<cuantas; i++) {
     flores.add(new panadero());
@@ -19,7 +26,8 @@ void setup() {
 void draw() {
   background(0);
   image(fondo, 0, 0);
-  
+  //int quePan = int(random(0, 3));
+  //image(pan[quePan], 0, 0);
   
 
   stroke(255, 0, 0);

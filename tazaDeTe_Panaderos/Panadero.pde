@@ -1,6 +1,6 @@
 class panadero {
   PVector posicion ;
-  PImage [] flor = new PImage [5];
+  PImage [] flor = new PImage [6];
   float contador = random(360);
   float velocidad = random(2)+ 0.1;
 
@@ -14,12 +14,12 @@ class panadero {
 
   void draw() {
     posicion.y = sin(radians(contador)) * 200;
-    int cualLuci = int(random(0, 5));
+    int cualPana = int(random(0, 6));
     pushMatrix();
     translate(posicion.x, posicion.y, posicion.z);
     //rotateY(-radians(rotacion));
     rotateY(radians(rotacion));
-    image(flor[cualLuci], 0, 0);
+    image(flor[cualPana], 0, 0);
     popMatrix();
     contador += velocidad;
   }
