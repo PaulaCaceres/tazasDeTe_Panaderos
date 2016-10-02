@@ -1,7 +1,12 @@
+//variable para guardar tiempo transcurrido
+int tiempo;
+//variable para guardar el tiempo de delay necesario
+int delay = 500;
+
 PImage fondo;
-PImage [] pan = new PImage [3];
-PImage [] pan2 = new PImage [3];
-PImage [] pan3 = new PImage [3];
+PImage [] animacion1 = new PImage [3];
+PImage [] animacion2 = new PImage [3];
+PImage [] animacion3 = new PImage [3];
 
 ArrayList<panadero> flores;
 int cuantas = 100;
@@ -10,20 +15,24 @@ int rotacion = 0;
 void setup() {
   size(1920, 1080, P3D);
   hint(ENABLE_DEPTH_SORT);
+  
+  //guardar tiempo actual
+  tiempo = millis();
+  
   fondo = loadImage("fondo.png");
   
   // dibujar particulas individuales para el fondo y animarlas
   
-   for ( int i = 0; i<pan.length; i++ ) {
-      pan[i] = loadImage( "adelante" + (i+1) + ".png" );
+   for ( int i = 0; i<animacion1.length; i++ ) {
+      animacion1[i] = loadImage( "adelante" + (i+1) + ".png" );
       }
       
-  for ( int i = 0; i<pan2.length; i++ ) {
-      pan2[i] = loadImage( "medio" + (i+1) + ".png" );
+  for ( int i = 0; i<animacion2.length; i++ ) {
+      animacion2[i] = loadImage( "medio" + (i+1) + ".png" );
       }
       
-  for ( int i = 0; i<pan3.length; i++ ) {
-      pan3[i] = loadImage( "atras" + (i+1) + ".png" );
+  for ( int i = 0; i<animacion3.length; i++ ) {
+      animacion3[i] = loadImage( "atras" + (i+1) + ".png" );
       }
       
   
@@ -37,12 +46,19 @@ void setup() {
 void draw() {
   background(0);
   image(fondo, 0, 0);
-  
   int quePan = int(random(0, 3));
-  image(pan[quePan], 90, 700);
-  image(pan2[quePan], 900, 850);
-  image(pan3[quePan], 1400, 830);
-  
+
+  //chequear si el tiempo transcurrido - el tiempo guardado al principio es mayor al delay
+  if(millis() - tiempo >= delay) {
+    //dibujar imágenes
+    image(animacion1[quePan], 90, 700);
+    image(animacion2[quePan], 900, 850);
+    image(animacion3[quePan], 1400, 830);
+    //actualizar tiempo guardado
+    tiempo = millis();
+   
+  }
+
 
   stroke(255, 0, 0);
 

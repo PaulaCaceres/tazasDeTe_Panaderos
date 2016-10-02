@@ -4,6 +4,7 @@ class panadero {
   float contador = random(360);
   float velocidad = random(2)+ 0.1;
 
+
   // Es como el setup() del codigo principal
   panadero() { 
     for ( int i = 0; i<flor.length; i++ ) {
@@ -15,12 +16,14 @@ class panadero {
   void draw() {
     posicion.y = sin(radians(contador)) * 200;
     int cualPana = int(random(0, 6));
+    
     pushMatrix();
     translate(posicion.x, posicion.y, posicion.z);
     //rotateY(-radians(rotacion));
     rotateY(radians(rotacion));
     image(flor[cualPana], 0, 0);
     popMatrix();
+    
     contador += velocidad;
   }
 } 
