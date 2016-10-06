@@ -1,7 +1,13 @@
+import netP5.*;
+import oscP5.*;
+
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
 //variable para guardar tiempo transcurrido
 int tiempo;
 //variable para guardar el tiempo de delay necesario
-int delay = 500;
+int delay = 1000;
 
 PImage fondo;
 PImage [] animacion1 = new PImage [3];
@@ -9,12 +15,16 @@ PImage [] animacion2 = new PImage [3];
 PImage [] animacion3 = new PImage [3];
 
 ArrayList<panadero> flores;
-int cuantas = 100;
+int cuantas = 150;
 int rotacion = 0;
 
 void setup() {
   size(1920, 1080, P3D);
   hint(ENABLE_DEPTH_SORT);
+  /* start oscP5, listening for incoming messages at port 12000 */
+  oscP5 = new OscP5(this,12000);
+  /* myRemoteLocation is a NetAddress (takes 2 parameters, an ip address and a port number) and is used as parameter in oscP5.send()*/
+  myRemoteLocation = new NetAddress("127.0.0.1",12001);
   
   //guardar tiempo actual
   tiempo = millis();
@@ -45,6 +55,13 @@ void setup() {
 
 void draw() {
   background(0);
+  OscMessage m = new OscMessage("mouse");
+  
+  m.add(mouseX); /* add an int to the osc message */
+
+  /* send the message */
+  oscP5.send(m, myRemoteLocation); 
+  
   image(fondo, 0, 0);
   int quePan = int(random(0, 3));
 
